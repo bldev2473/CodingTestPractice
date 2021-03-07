@@ -59,13 +59,26 @@ class Solution:
 
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
 
+        max_len = max(len(l1), len(l2))
+        result_ln = [0 for i in range(0, max_len)]
+
         ln1 = self.createListNode(l1)
         ln2 = self.createListNode(l2)
+        result = self.createListNode(result_ln)
 
-        result = ListNode()
         digit = 0
 
         while True:
+
+            if ln1.next is None and ln2.next is None:
+                break
+
+            if ln1.next is None and ln2.next is not None:
+                ln1.next = ListNode()
+
+            elif ln2.next is None and ln1.next is not None:
+                ln2.next = ListNode()
+
             if ln1.val + ln2.val + digit >= 10:
                 if ln1.next is None and ln2.next is None:
                     result.val = ln1.val + ln2.val + digit - 10
@@ -82,20 +95,8 @@ class Solution:
 
             print('result.val, result.next.val', result.val, result.next.val)
 
-            if ln1.next is None and ln2.next is None:
-                break
-
-            if ln1.next is None and ln2.next is not None:
-                ln1.next = ListNode()
-
-            elif ln2.next is None and ln1.next is not None:
-                ln2.next = ListNode()
-
             ln1 = ln1.next
             ln2 = ln2.next
-
-
-
             result = result.next
 
         return result
