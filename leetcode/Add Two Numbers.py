@@ -48,19 +48,21 @@ class Solution:
 
     def printListNode(self, ln):
         temp = ln
+        result_list_node = []
         while True:
             print('ListNode val:', temp.val)
-
+            result_list_node.append(temp.val)
             if temp.next is None:
                 break
             else:
-                print('ListNode next:', temp.next)
+                print('ListNode next:', temp.next.val)
                 temp = temp.next
+        return result_list_node
 
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
 
         max_len = max(len(l1), len(l2))
-        result_ln = [0 for i in range(0, max_len)]
+        result_ln = [0 for _ in range(0, max_len)]
 
         ln1 = self.createListNode(l1)
         ln2 = self.createListNode(l2)
@@ -71,6 +73,15 @@ class Solution:
         while True:
 
             if ln1.next is None and ln2.next is None:
+                if ln1.val + ln2.val + digit >= 10:
+                    result.val = ln1.val + ln2.val + digit - 10
+                    digit = 1
+                    result.next = ListNode(digit)
+                    self.sum_list_node.append(result)
+                else:
+                    result.val = ln1.val + ln2.val + digit
+                    result.next = None
+                    self.sum_list_node.append(result)
                 break
 
             if ln1.next is None and ln2.next is not None:
@@ -80,33 +91,26 @@ class Solution:
                 ln2.next = ListNode()
 
             if ln1.val + ln2.val + digit >= 10:
-                if ln1.next is None and ln2.next is None:
-                    result.val = ln1.val + ln2.val + digit - 10
-                    result.next = ListNode(ln1.val + ln2.val + digit - 10)
-                    digit = 1
-                else:
-                    result.val = ln1.val + ln2.val + digit - 10
-                    result.next = ListNode()
-                    digit = 1
+                result.val = ln1.val + ln2.val + digit - 10
+                digit = 1
+                result.next = ListNode(ln1.next.val + ln2.next.val + digit)
             else:
-                result.val = ln1.val + ln2.val
-                result.next = ListNode()
+                result.val = ln1.val + ln2.val + digit
                 digit = 0
+                result.next = ListNode(ln1.next.val + ln2.next.val)
 
-            print('result.val, result.next.val', result.val, result.next.val)
+            # print('result.val, result.next.val', result.val, result.next.val)
+            self.sum_list_node.append(result)
 
             ln1 = ln1.next
             ln2 = ln2.next
             result = result.next
 
-        return result
+        return self.sum_list_node
 
 
 sln = Solution()
-# sln.addTwoNumbers([2,4,3], [5,6,4])
-# sln.addTwoNumbers([9,9,9,9,9,9,9], [9,9,9,9])
-# sln.addTwoNumbers([0], [0])
 print('result: ')
-# sln.printListNode(sln.addTwoNumbers([2, 4, 3], [5, 6, 4]))
-sln.printListNode(sln.addTwoNumbers([9, 9, 9, 9, 9, 9, 9],
-                                    [9, 9, 9, 9]))
+# print(sln.printListNode(sln.addTwoNumbers([2, 4, 3], [5, 6, 4])[0]))
+# print(sln.printListNode(sln.addTwoNumbers([9, 9, 9, 9, 9, 9, 9], [9, 9, 9, 9])[0]))
+print(sln.printListNode(sln.addTwoNumbers([0], [0])[0]))
