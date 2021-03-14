@@ -1,5 +1,6 @@
 '''
 #Time Limit Exceeded
+
 from collections import namedtuple
 LLS = namedtuple('LLS', ['str', 'len', 'result'])
 
@@ -42,6 +43,7 @@ print(sln.lengthOfLongestSubstring(''))
 #Success
 #Runtime: 240 ms, faster than 19.04% of Python3 online submissions for Longest Substring Without Repeating Characters.
 #Memory Usage: 14.4 MB, less than 27.85% of Python3 online submissions for Longest Substring Without Repeating Characters.
+
 from collections import deque
 
 class Solution:
