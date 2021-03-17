@@ -22,6 +22,10 @@ Constraints:
 1 <= s.length <= 1000
 s consist of only digits and English letters (lower-case and/or upper-case)
 '''
+
+'''
+#Time Limit Exceeded
+
 from collections import deque
 
 class Solution:
@@ -48,3 +52,123 @@ class Solution:
 sln = Solution()
 print(sln.longestPalindrome('babad'))
 print(sln.longestPalindrome('cbbd'))
+'''
+
+'''
+#Time Limit Exceeded
+
+class Solution:
+	def __init__(self):
+		self.result = ''
+		self.memo_dict = {}
+		
+	def longestPalindrome(self, s):
+		self.memo_dict = {}
+		if self.isPalindrome(s):
+			return s
+		else:
+			self.recursive(s, 'right')
+			self.recursive(s, 'left')
+		
+		result_dict = dict(filter(lambda elem: elem[1] == True, self.memo_dict.items()))
+		result_dict = list(result_dict.keys())
+		result_dict.sort(key=len, reverse=True)
+		print(result_dict)
+		return result_dict[0]
+		
+	def recursive(self, s, flag):
+		if len(s) == 1:
+			self.memo_dict[s] = True
+			return
+		
+		if flag == 'right':
+			s = s[:len(s) - 1]
+			if self.memo_dict.get(s) is None:
+				self.memo_dict[s] = self.isPalindrome(s)
+			self.recursive(s, 'right')
+			self.recursive(s, 'left')
+		else:
+			s = s[1:]
+			if self.memo_dict.get(s) is None:
+				self.memo_dict[s] = self.isPalindrome(s)
+			self.recursive(s, 'left')
+			self.recursive(s, 'right')
+					
+	def isPalindrome(self, s):
+		return (True if s == s[::-1] else False)
+
+sln = Solution()
+print(sln.longestPalindrome('babad'))
+print(sln.longestPalindrome('cbbd'))
+print(sln.longestPalindrome('a'))
+print(sln.longestPalindrome('ac'))
+'''
+
+'''
+# RecursionError: maximum recursion depth exceeded
+
+class Solution:
+	def __init__(self):
+		self.result = ''
+		self.memo_dict = {}
+		
+	def longestPalindrome(self, s):
+		if self.isPalindrome(s):
+			return s
+		else:
+			self.recursive(s, 'right')
+			self.recursive(s, 'left')
+		
+		result_dict = self.memo_dict
+		result_dict = dict(filter(lambda elem: elem[1] == True, result_dict.items()))
+		
+		result_list = [key for key in result_dict]
+		result_list.sort(reverse=True, key=len)
+		return result_list[0]
+		
+	def recursive(self, s, flag):
+		if len(s) == 1:
+			print('break')
+			self.memo_dict[s] = True
+			return
+		
+		if flag == 'right':
+			m_str = s[:len(s) - 1]
+			print(m_str)
+			if self.memo_dict.get(m_str) is None:
+				if self.isPalindrome(m_str):
+					self.memo_dict[m_str] = True
+					
+				else:
+					self.memo_dict[m_str] = False
+					
+				self.recursive(m_str, 'right')
+				self.recursive(m_str, 'left')
+			else:
+				return
+		else:
+			m_str = s[1:]
+			print(m_str)
+			if self.memo_dict.get(m_str) is None:
+				if self.isPalindrome(m_str):
+					self.memo_dict[m_str] = True
+					
+				else:
+					self.memo_dict[m_str] = False
+					
+				self.recursive(m_str, 'right')
+				self.recursive(m_str, 'left')
+			else:
+				return
+					
+	def isPalindrome(self, s):
+		return (True if s == s[::-1] else False)
+
+sln = Solution()
+#print(sln.longestPalindrome('babad'))
+#print(sln.longestPalindrome('cbbd'))
+#print(sln.longestPalindrome('a'))
+#print(sln.longestPalindrome('ac'))
+#print(sln.longestPalindrome('abbcccbbbcaaccbababcbcabca'))
+print(sln.longestPalindrome('esbtzjaaijqkgmtaajpsdfiqtvxsgfvijpxrvxgfumsuprzlyvhclgkhccmcnquukivlpnjlfteljvykbddtrpmxzcrdqinsnlsteonhcegtkoszzonkwjevlasgjlcquzuhdmmkhfniozhuphcfkeobturbuoefhmtgcvhlsezvkpgfebbdbhiuwdcftenihseorykdguoqotqyscwymtjejpdzqepjkadtftzwebxwyuqwyeegwxhroaaymusddwnjkvsvrwwsmolmidoybsotaqufhepinkkxicvzrgbgsarmizugbvtzfxghkhthzpuetufqvigmyhmlsgfaaqmmlblxbqxpluhaawqkdluwfirfngbhdkjjyfsxglsnakskcbsyafqpwmwmoxjwlhjduayqyzmpkmrjhbqyhongfdxmuwaqgjkcpatgbrqdllbzodnrifvhcfvgbixbwywanivsdjnbrgskyifgvksadvgzzzuogzcukskjxbohofdimkmyqypyuexypwnjlrfpbtkqyngvxjcwvngmilgwbpcsseoywetatfjijsbcekaixvqreelnlmdonknmxerjjhvmqiztsgjkijjtcyetuygqgsikxctvpxrqtuhxreidhwcklkkjayvqdzqqapgdqaapefzjfngdvjsiiivnkfimqkkucltgavwlakcfyhnpgmqxgfyjziliyqhugphhjtlllgtlcsibfdktzhcfuallqlonbsgyyvvyarvaxmchtyrtkgekkmhejwvsuumhcfcyncgeqtltfmhtlsfswaqpmwpjwgvksvazhwyrzwhyjjdbphhjcmurdcgtbvpkhbkpirhysrpcrntetacyfvgjivhaxgpqhbjahruuejdmaghoaquhiafjqaionbrjbjksxaezosxqmncejjptcksnoq'))
+'''
