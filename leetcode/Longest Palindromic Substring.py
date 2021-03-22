@@ -52,6 +52,8 @@ class Solution:
 sln = Solution()
 print(sln.longestPalindrome('babad'))
 print(sln.longestPalindrome('cbbd'))
+print(sln.longestPalindrome('abbcccbbbcaaccbababcbcabca'))
+print(sln.longestPalindrome('"rgczcpratwyqxaszbuwwcadruayhasynuxnakpmsyhxzlnxmdtsqqlmwnbxvmgvllafrpmlfuqpbhjddmhmbcgmlyeypkfpreddyencsdmgxysctpubvgeedhurvizgqxclhpfrvxggrowaynrtuwvvvwnqlowdihtrdzjffrgoeqivnprdnpvfjuhycpfydjcpfcnkpyujljiesmuxhtizzvwhvpqylvcirwqsmpptyhcqybstsfgjadicwzycswwmpluvzqdvnhkcofptqrzgjqtbvbdxylrylinspncrkxclykccbwridpqckstxdjawvziucrswpsfmisqiozworibeycuarcidbljslwbalcemgymnsxfziattdylrulwrybzztoxhevsdnvvljfzzrgcmagshucoalfiuapgzpqgjjgqsmcvtdsvehewrvtkeqwgmatqdpwlayjcxcavjmgpdyklrjcqvxjqbjucfubgmgpkfdxznkhcejscymuildfnuxwmuklntnyycdcscioimenaeohgpbcpogyifcsatfxeslstkjclauqmywacizyapxlgtcchlxkvygzeucwalhvhbwkvbceqajstxzzppcxoanhyfkgwaelsfdeeviqogjpresnoacegfeejyychabkhszcokdxpaqrprwfdahjqkfptwpeykgumyemgkccynxuvbdpjlrbgqtcqulxodurugofuwzudnhgxdrbbxtrvdnlodyhsifvyspejenpdckevzqrexplpcqtwtxlimfrsjumiygqeemhihcxyngsemcolrnlyhqlbqbcestadoxtrdvcgucntjnfavylip"'))
 '''
 
 '''
@@ -172,3 +174,36 @@ sln = Solution()
 #print(sln.longestPalindrome('abbcccbbbcaaccbababcbcabca'))
 print(sln.longestPalindrome('esbtzjaaijqkgmtaajpsdfiqtvxsgfvijpxrvxgfumsuprzlyvhclgkhccmcnquukivlpnjlfteljvykbddtrpmxzcrdqinsnlsteonhcegtkoszzonkwjevlasgjlcquzuhdmmkhfniozhuphcfkeobturbuoefhmtgcvhlsezvkpgfebbdbhiuwdcftenihseorykdguoqotqyscwymtjejpdzqepjkadtftzwebxwyuqwyeegwxhroaaymusddwnjkvsvrwwsmolmidoybsotaqufhepinkkxicvzrgbgsarmizugbvtzfxghkhthzpuetufqvigmyhmlsgfaaqmmlblxbqxpluhaawqkdluwfirfngbhdkjjyfsxglsnakskcbsyafqpwmwmoxjwlhjduayqyzmpkmrjhbqyhongfdxmuwaqgjkcpatgbrqdllbzodnrifvhcfvgbixbwywanivsdjnbrgskyifgvksadvgzzzuogzcukskjxbohofdimkmyqypyuexypwnjlrfpbtkqyngvxjcwvngmilgwbpcsseoywetatfjijsbcekaixvqreelnlmdonknmxerjjhvmqiztsgjkijjtcyetuygqgsikxctvpxrqtuhxreidhwcklkkjayvqdzqqapgdqaapefzjfngdvjsiiivnkfimqkkucltgavwlakcfyhnpgmqxgfyjziliyqhugphhjtlllgtlcsibfdktzhcfuallqlonbsgyyvvyarvaxmchtyrtkgekkmhejwvsuumhcfcyncgeqtltfmhtlsfswaqpmwpjwgvksvazhwyrzwhyjjdbphhjcmurdcgtbvpkhbkpirhysrpcrntetacyfvgjivhaxgpqhbjahruuejdmaghoaquhiafjqaionbrjbjksxaezosxqmncejjptcksnoq'))
 '''
+
+#Success
+#Details 
+#Runtime: 9872 ms, faster than 5.01% of Python3 online submissions for Longest Palindromic Substring.
+#Memory Usage: 14.3 MB, less than 63.02% of Python3 online submissions for Longest Palindromic Substring.
+
+class Solution:
+    def longestPalindrome(self, s):
+        if len(s) == 1:
+            return s
+
+        for i in reversed(range(0, len(s) + 1)):
+            start_index = -1
+            while True:
+                start_index += 1
+                end_index = start_index + i
+                if end_index == len(s) + 1:
+                    break
+
+                m_str = s[start_index:end_index]
+                if self.isPalindrome(m_str):
+                    return m_str
+
+    def isPalindrome(self, s):
+        return (True if s == s[::-1] else False)
+
+sln = Solution()
+print(sln.longestPalindrome('babad'))
+print(sln.longestPalindrome('cbbd'))
+print(sln.longestPalindrome('a'))
+print(sln.longestPalindrome('ac'))
+print(sln.longestPalindrome('bb'))
+print(sln.longestPalindrome('abbcccbbbcaaccbababcbcabca'))
